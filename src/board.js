@@ -2,6 +2,13 @@ import React from 'react';
 import Square from './square';
 
 export default class Board extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            side: Math.sqrt( this.props.squares.length ),
+        };
+    }
+
     renderSquare(i) {
         return (
             <Square 
@@ -12,13 +19,9 @@ export default class Board extends React.Component {
         );
     }
 
-    side() {
-        return Math.sqrt( this.props.squares.length );
-    }
-
     renderRow(row) {
-        const cols = Array(this.side()).fill(null).map( (x, col) => {
-            return this.renderSquare((row * this.side()) + col);  
+        const cols = Array(this.state.side).fill(null).map( (x, col) => {
+            return this.renderSquare((row * this.state.side) + col);  
         });
         return (
             <div 
@@ -32,7 +35,7 @@ export default class Board extends React.Component {
 
 
     render() {
-        const rows = Array(this.side()).fill(null).map( (x, row) => {
+        const rows = Array(this.state.side).fill(null).map( (x, row) => {
             return this.renderRow(row);  
         });
  
